@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.fm.mapper.PptpcMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.fm.po.Pptpc" >
+    <id column="pptPCid" property="pptpcid" jdbcType="INTEGER" />
+    <result column="pptPCname" property="pptpcname" jdbcType="VARCHAR" />
+    <result column="pptPCaddress" property="pptpcaddress" jdbcType="VARCHAR" />
+    <result column="pptPCuuidname" property="pptpcuuidname" jdbcType="VARCHAR" />
+    <result column="pptPCuploadtime" property="pptpcuploadtime" jdbcType="TIMESTAMP" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pptPCid, pptPCname, pptPCaddress, pptPCuuidname, pptPCuploadtime, userId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mh.fm.po.PptpcExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pptpc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pptpc
+    where pptPCid = #{pptpcid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pptpc
+    where pptPCid = #{pptpcid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mh.fm.po.PptpcExample" >
+    delete from pptpc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mh.fm.po.Pptpc" >
+    insert into pptpc (pptPCid, pptPCname, pptPCaddress, 
+      pptPCuuidname, pptPCuploadtime, userId
+      )
+    values (#{pptpcid,jdbcType=INTEGER}, #{pptpcname,jdbcType=VARCHAR}, #{pptpcaddress,jdbcType=VARCHAR}, 
+      #{pptpcuuidname,jdbcType=VARCHAR}, #{pptpcuploadtime,jdbcType=TIMESTAMP}, #{userid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.fm.po.Pptpc" >
+    insert into pptpc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pptpcid != null" >
+        pptPCid,
+      </if>
+      <if test="pptpcname != null" >
+        pptPCname,
+      </if>
+      <if test="pptpcaddress != null" >
+        pptPCaddress,
+      </if>
+      <if test="pptpcuuidname != null" >
+        pptPCuuidname,
+      </if>
+      <if test="pptpcuploadtime != null" >
+        pptPCuploadtime,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pptpcid != null" >
+        #{pptpcid,jdbcType=INTEGER},
+      </if>
+      <if test="pptpcname != null" >
+        #{pptpcname,jdbcType=VARCHAR},
+      </if>
+      <if test="pptpcaddress != null" >
+        #{pptpcaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pptpcuuidname != null" >
+        #{pptpcuuidname,jdbcType=VARCHAR},
+      </if>
+      <if test="pptpcuploadtime != null" >
+        #{pptpcuploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mh.fm.po.PptpcExample" resultType="java.lang.Integer" >
+    select count(*) from pptpc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pptpc
+    <set >
+      <if test="record.pptpcid != null" >
+        pptPCid = #{record.pptpcid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pptpcname != null" >
+        pptPCname = #{record.pptpcname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pptpcaddress != null" >
+        pptPCaddress = #{record.pptpcaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pptpcuuidname != null" >
+        pptPCuuidname = #{record.pptpcuuidname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pptpcuploadtime != null" >
+        pptPCuploadtime = #{record.pptpcuploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pptpc
+    set pptPCid = #{record.pptpcid,jdbcType=INTEGER},
+      pptPCname = #{record.pptpcname,jdbcType=VARCHAR},
+      pptPCaddress = #{record.pptpcaddress,jdbcType=VARCHAR},
+      pptPCuuidname = #{record.pptpcuuidname,jdbcType=VARCHAR},
+      pptPCuploadtime = #{record.pptpcuploadtime,jdbcType=TIMESTAMP},
+      userId = #{record.userid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.fm.po.Pptpc" >
+    update pptpc
+    <set >
+      <if test="pptpcname != null" >
+        pptPCname = #{pptpcname,jdbcType=VARCHAR},
+      </if>
+      <if test="pptpcaddress != null" >
+        pptPCaddress = #{pptpcaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pptpcuuidname != null" >
+        pptPCuuidname = #{pptpcuuidname,jdbcType=VARCHAR},
+      </if>
+      <if test="pptpcuploadtime != null" >
+        pptPCuploadtime = #{pptpcuploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pptPCid = #{pptpcid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.fm.po.Pptpc" >
+    update pptpc
+    set pptPCname = #{pptpcname,jdbcType=VARCHAR},
+      pptPCaddress = #{pptpcaddress,jdbcType=VARCHAR},
+      pptPCuuidname = #{pptpcuuidname,jdbcType=VARCHAR},
+      pptPCuploadtime = #{pptpcuploadtime,jdbcType=TIMESTAMP},
+      userId = #{userid,jdbcType=INTEGER}
+    where pptPCid = #{pptpcid,jdbcType=INTEGER}
+  </update>
+</mapper>

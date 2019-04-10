@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.fm.mapper.TablepcMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.fm.po.Tablepc" >
+    <id column="tablePCid" property="tablepcid" jdbcType="INTEGER" />
+    <result column="tablePCname" property="tablepcname" jdbcType="VARCHAR" />
+    <result column="tablePCaddress" property="tablepcaddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tablePCid, tablePCname, tablePCaddress
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mh.fm.po.TablepcExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tablepc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tablepc
+    where tablePCid = #{tablepcid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tablepc
+    where tablePCid = #{tablepcid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mh.fm.po.TablepcExample" >
+    delete from tablepc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mh.fm.po.Tablepc" >
+    insert into tablepc (tablePCid, tablePCname, tablePCaddress
+      )
+    values (#{tablepcid,jdbcType=INTEGER}, #{tablepcname,jdbcType=VARCHAR}, #{tablepcaddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.fm.po.Tablepc" >
+    insert into tablepc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tablepcid != null" >
+        tablePCid,
+      </if>
+      <if test="tablepcname != null" >
+        tablePCname,
+      </if>
+      <if test="tablepcaddress != null" >
+        tablePCaddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tablepcid != null" >
+        #{tablepcid,jdbcType=INTEGER},
+      </if>
+      <if test="tablepcname != null" >
+        #{tablepcname,jdbcType=VARCHAR},
+      </if>
+      <if test="tablepcaddress != null" >
+        #{tablepcaddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mh.fm.po.TablepcExample" resultType="java.lang.Integer" >
+    select count(*) from tablepc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tablepc
+    <set >
+      <if test="record.tablepcid != null" >
+        tablePCid = #{record.tablepcid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tablepcname != null" >
+        tablePCname = #{record.tablepcname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tablepcaddress != null" >
+        tablePCaddress = #{record.tablepcaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tablepc
+    set tablePCid = #{record.tablepcid,jdbcType=INTEGER},
+      tablePCname = #{record.tablepcname,jdbcType=VARCHAR},
+      tablePCaddress = #{record.tablepcaddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.fm.po.Tablepc" >
+    update tablepc
+    <set >
+      <if test="tablepcname != null" >
+        tablePCname = #{tablepcname,jdbcType=VARCHAR},
+      </if>
+      <if test="tablepcaddress != null" >
+        tablePCaddress = #{tablepcaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tablePCid = #{tablepcid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.fm.po.Tablepc" >
+    update tablepc
+    set tablePCname = #{tablepcname,jdbcType=VARCHAR},
+      tablePCaddress = #{tablepcaddress,jdbcType=VARCHAR}
+    where tablePCid = #{tablepcid,jdbcType=INTEGER}
+  </update>
+</mapper>

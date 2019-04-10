@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="FM:war">
+    <output-path>D:/</output-path>
+    <root id="archive" name="FM_war.war">
+      <element id="artifact" artifact-name="FM:war exploded" />
+    </root>
+  </artifact>
+</component>

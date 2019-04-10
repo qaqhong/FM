@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.fm.mapper.PptphoneMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.fm.po.Pptphone" >
+    <id column="pptphoneid" property="pptphoneid" jdbcType="INTEGER" />
+    <result column="pptphonename" property="pptphonename" jdbcType="VARCHAR" />
+    <result column="pptphoneaddress" property="pptphoneaddress" jdbcType="VARCHAR" />
+    <result column="pptPhoneuuidname" property="pptphoneuuidname" jdbcType="VARCHAR" />
+    <result column="pptPhoneuploadtime" property="pptphoneuploadtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pptphoneid, pptphonename, pptphoneaddress, pptPhoneuuidname, pptPhoneuploadtime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mh.fm.po.PptphoneExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pptphone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pptphone
+    where pptphoneid = #{pptphoneid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pptphone
+    where pptphoneid = #{pptphoneid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mh.fm.po.PptphoneExample" >
+    delete from pptphone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mh.fm.po.Pptphone" >
+    insert into pptphone (pptphoneid, pptphonename, pptphoneaddress, 
+      pptPhoneuuidname, pptPhoneuploadtime)
+    values (#{pptphoneid,jdbcType=INTEGER}, #{pptphonename,jdbcType=VARCHAR}, #{pptphoneaddress,jdbcType=VARCHAR}, 
+      #{pptphoneuuidname,jdbcType=VARCHAR}, #{pptphoneuploadtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.fm.po.Pptphone" >
+    insert into pptphone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pptphoneid != null" >
+        pptphoneid,
+      </if>
+      <if test="pptphonename != null" >
+        pptphonename,
+      </if>
+      <if test="pptphoneaddress != null" >
+        pptphoneaddress,
+      </if>
+      <if test="pptphoneuuidname != null" >
+        pptPhoneuuidname,
+      </if>
+      <if test="pptphoneuploadtime != null" >
+        pptPhoneuploadtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pptphoneid != null" >
+        #{pptphoneid,jdbcType=INTEGER},
+      </if>
+      <if test="pptphonename != null" >
+        #{pptphonename,jdbcType=VARCHAR},
+      </if>
+      <if test="pptphoneaddress != null" >
+        #{pptphoneaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pptphoneuuidname != null" >
+        #{pptphoneuuidname,jdbcType=VARCHAR},
+      </if>
+      <if test="pptphoneuploadtime != null" >
+        #{pptphoneuploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mh.fm.po.PptphoneExample" resultType="java.lang.Integer" >
+    select count(*) from pptphone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pptphone
+    <set >
+      <if test="record.pptphoneid != null" >
+        pptphoneid = #{record.pptphoneid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pptphonename != null" >
+        pptphonename = #{record.pptphonename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pptphoneaddress != null" >
+        pptphoneaddress = #{record.pptphoneaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pptphoneuuidname != null" >
+        pptPhoneuuidname = #{record.pptphoneuuidname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pptphoneuploadtime != null" >
+        pptPhoneuploadtime = #{record.pptphoneuploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pptphone
+    set pptphoneid = #{record.pptphoneid,jdbcType=INTEGER},
+      pptphonename = #{record.pptphonename,jdbcType=VARCHAR},
+      pptphoneaddress = #{record.pptphoneaddress,jdbcType=VARCHAR},
+      pptPhoneuuidname = #{record.pptphoneuuidname,jdbcType=VARCHAR},
+      pptPhoneuploadtime = #{record.pptphoneuploadtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.fm.po.Pptphone" >
+    update pptphone
+    <set >
+      <if test="pptphonename != null" >
+        pptphonename = #{pptphonename,jdbcType=VARCHAR},
+      </if>
+      <if test="pptphoneaddress != null" >
+        pptphoneaddress = #{pptphoneaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pptphoneuuidname != null" >
+        pptPhoneuuidname = #{pptphoneuuidname,jdbcType=VARCHAR},
+      </if>
+      <if test="pptphoneuploadtime != null" >
+        pptPhoneuploadtime = #{pptphoneuploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pptphoneid = #{pptphoneid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.fm.po.Pptphone" >
+    update pptphone
+    set pptphonename = #{pptphonename,jdbcType=VARCHAR},
+      pptphoneaddress = #{pptphoneaddress,jdbcType=VARCHAR},
+      pptPhoneuuidname = #{pptphoneuuidname,jdbcType=VARCHAR},
+      pptPhoneuploadtime = #{pptphoneuploadtime,jdbcType=TIMESTAMP}
+    where pptphoneid = #{pptphoneid,jdbcType=INTEGER}
+  </update>
+</mapper>

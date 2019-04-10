@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.fm.mapper.PptknowledgeMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.fm.po.Pptknowledge" >
+    <id column="pptKnowledgeid" property="pptknowledgeid" jdbcType="INTEGER" />
+    <result column="pptKnowledgename" property="pptknowledgename" jdbcType="VARCHAR" />
+    <result column="pptKnowledgeaddress" property="pptknowledgeaddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pptKnowledgeid, pptKnowledgename, pptKnowledgeaddress
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mh.fm.po.PptknowledgeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pptknowledge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pptknowledge
+    where pptKnowledgeid = #{pptknowledgeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pptknowledge
+    where pptKnowledgeid = #{pptknowledgeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mh.fm.po.PptknowledgeExample" >
+    delete from pptknowledge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mh.fm.po.Pptknowledge" >
+    insert into pptknowledge (pptKnowledgeid, pptKnowledgename, 
+      pptKnowledgeaddress)
+    values (#{pptknowledgeid,jdbcType=INTEGER}, #{pptknowledgename,jdbcType=VARCHAR}, 
+      #{pptknowledgeaddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.fm.po.Pptknowledge" >
+    insert into pptknowledge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pptknowledgeid != null" >
+        pptKnowledgeid,
+      </if>
+      <if test="pptknowledgename != null" >
+        pptKnowledgename,
+      </if>
+      <if test="pptknowledgeaddress != null" >
+        pptKnowledgeaddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pptknowledgeid != null" >
+        #{pptknowledgeid,jdbcType=INTEGER},
+      </if>
+      <if test="pptknowledgename != null" >
+        #{pptknowledgename,jdbcType=VARCHAR},
+      </if>
+      <if test="pptknowledgeaddress != null" >
+        #{pptknowledgeaddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mh.fm.po.PptknowledgeExample" resultType="java.lang.Integer" >
+    select count(*) from pptknowledge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pptknowledge
+    <set >
+      <if test="record.pptknowledgeid != null" >
+        pptKnowledgeid = #{record.pptknowledgeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pptknowledgename != null" >
+        pptKnowledgename = #{record.pptknowledgename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pptknowledgeaddress != null" >
+        pptKnowledgeaddress = #{record.pptknowledgeaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pptknowledge
+    set pptKnowledgeid = #{record.pptknowledgeid,jdbcType=INTEGER},
+      pptKnowledgename = #{record.pptknowledgename,jdbcType=VARCHAR},
+      pptKnowledgeaddress = #{record.pptknowledgeaddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.fm.po.Pptknowledge" >
+    update pptknowledge
+    <set >
+      <if test="pptknowledgename != null" >
+        pptKnowledgename = #{pptknowledgename,jdbcType=VARCHAR},
+      </if>
+      <if test="pptknowledgeaddress != null" >
+        pptKnowledgeaddress = #{pptknowledgeaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pptKnowledgeid = #{pptknowledgeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.fm.po.Pptknowledge" >
+    update pptknowledge
+    set pptKnowledgename = #{pptknowledgename,jdbcType=VARCHAR},
+      pptKnowledgeaddress = #{pptknowledgeaddress,jdbcType=VARCHAR}
+    where pptKnowledgeid = #{pptknowledgeid,jdbcType=INTEGER}
+  </update>
+</mapper>

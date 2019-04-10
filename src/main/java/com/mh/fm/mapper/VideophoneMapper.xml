@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.fm.mapper.VideophoneMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.fm.po.Videophone" >
+    <id column="videoPhoneid" property="videophoneid" jdbcType="INTEGER" />
+    <result column="videoPhonename" property="videophonename" jdbcType="VARCHAR" />
+    <result column="videoPhoneaddress" property="videophoneaddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    videoPhoneid, videoPhonename, videoPhoneaddress
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mh.fm.po.VideophoneExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from videophone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from videophone
+    where videoPhoneid = #{videophoneid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from videophone
+    where videoPhoneid = #{videophoneid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mh.fm.po.VideophoneExample" >
+    delete from videophone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mh.fm.po.Videophone" >
+    insert into videophone (videoPhoneid, videoPhonename, videoPhoneaddress
+      )
+    values (#{videophoneid,jdbcType=INTEGER}, #{videophonename,jdbcType=VARCHAR}, #{videophoneaddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.fm.po.Videophone" >
+    insert into videophone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="videophoneid != null" >
+        videoPhoneid,
+      </if>
+      <if test="videophonename != null" >
+        videoPhonename,
+      </if>
+      <if test="videophoneaddress != null" >
+        videoPhoneaddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="videophoneid != null" >
+        #{videophoneid,jdbcType=INTEGER},
+      </if>
+      <if test="videophonename != null" >
+        #{videophonename,jdbcType=VARCHAR},
+      </if>
+      <if test="videophoneaddress != null" >
+        #{videophoneaddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mh.fm.po.VideophoneExample" resultType="java.lang.Integer" >
+    select count(*) from videophone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update videophone
+    <set >
+      <if test="record.videophoneid != null" >
+        videoPhoneid = #{record.videophoneid,jdbcType=INTEGER},
+      </if>
+      <if test="record.videophonename != null" >
+        videoPhonename = #{record.videophonename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videophoneaddress != null" >
+        videoPhoneaddress = #{record.videophoneaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update videophone
+    set videoPhoneid = #{record.videophoneid,jdbcType=INTEGER},
+      videoPhonename = #{record.videophonename,jdbcType=VARCHAR},
+      videoPhoneaddress = #{record.videophoneaddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.fm.po.Videophone" >
+    update videophone
+    <set >
+      <if test="videophonename != null" >
+        videoPhonename = #{videophonename,jdbcType=VARCHAR},
+      </if>
+      <if test="videophoneaddress != null" >
+        videoPhoneaddress = #{videophoneaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where videoPhoneid = #{videophoneid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.fm.po.Videophone" >
+    update videophone
+    set videoPhonename = #{videophonename,jdbcType=VARCHAR},
+      videoPhoneaddress = #{videophoneaddress,jdbcType=VARCHAR}
+    where videoPhoneid = #{videophoneid,jdbcType=INTEGER}
+  </update>
+</mapper>

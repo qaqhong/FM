@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.fm.mapper.TablephoneMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.fm.po.Tablephone" >
+    <id column="tablePhoneid" property="tablephoneid" jdbcType="INTEGER" />
+    <result column="tablePhonename" property="tablephonename" jdbcType="VARCHAR" />
+    <result column="tablePhoneaddress" property="tablephoneaddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tablePhoneid, tablePhonename, tablePhoneaddress
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mh.fm.po.TablephoneExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tablephone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tablephone
+    where tablePhoneid = #{tablephoneid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tablephone
+    where tablePhoneid = #{tablephoneid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mh.fm.po.TablephoneExample" >
+    delete from tablephone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mh.fm.po.Tablephone" >
+    insert into tablephone (tablePhoneid, tablePhonename, tablePhoneaddress
+      )
+    values (#{tablephoneid,jdbcType=INTEGER}, #{tablephonename,jdbcType=VARCHAR}, #{tablephoneaddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.fm.po.Tablephone" >
+    insert into tablephone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tablephoneid != null" >
+        tablePhoneid,
+      </if>
+      <if test="tablephonename != null" >
+        tablePhonename,
+      </if>
+      <if test="tablephoneaddress != null" >
+        tablePhoneaddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tablephoneid != null" >
+        #{tablephoneid,jdbcType=INTEGER},
+      </if>
+      <if test="tablephonename != null" >
+        #{tablephonename,jdbcType=VARCHAR},
+      </if>
+      <if test="tablephoneaddress != null" >
+        #{tablephoneaddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mh.fm.po.TablephoneExample" resultType="java.lang.Integer" >
+    select count(*) from tablephone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tablephone
+    <set >
+      <if test="record.tablephoneid != null" >
+        tablePhoneid = #{record.tablephoneid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tablephonename != null" >
+        tablePhonename = #{record.tablephonename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tablephoneaddress != null" >
+        tablePhoneaddress = #{record.tablephoneaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tablephone
+    set tablePhoneid = #{record.tablephoneid,jdbcType=INTEGER},
+      tablePhonename = #{record.tablephonename,jdbcType=VARCHAR},
+      tablePhoneaddress = #{record.tablephoneaddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.fm.po.Tablephone" >
+    update tablephone
+    <set >
+      <if test="tablephonename != null" >
+        tablePhonename = #{tablephonename,jdbcType=VARCHAR},
+      </if>
+      <if test="tablephoneaddress != null" >
+        tablePhoneaddress = #{tablephoneaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tablePhoneid = #{tablephoneid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.fm.po.Tablephone" >
+    update tablephone
+    set tablePhonename = #{tablephonename,jdbcType=VARCHAR},
+      tablePhoneaddress = #{tablephoneaddress,jdbcType=VARCHAR}
+    where tablePhoneid = #{tablephoneid,jdbcType=INTEGER}
+  </update>
+</mapper>
